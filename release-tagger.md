@@ -33,6 +33,8 @@ Hard rules:
 
 When invoked:
 1. Run `git status --porcelain` — stop immediately if the tree is dirty.
+2. Run `git check-ignore -v .claude/ 2>/dev/null || echo "WARNING: .claude/ not ignored"` — warn if Claude workspace files are not gitignored.
+3. Run `git diff --cached --name-only | grep -E "^\.claude/"` — if anything under .claude/ is staged, STOP. Never include Claude workspace files in a release commit.
 2. Run `git tag --sort=-version:refname | head -1` to get the current version.
 3. Read `CHANGELOG.md` to identify what changed since the last tag.
 4. Determine the correct semver bump type from the changelog entries.
