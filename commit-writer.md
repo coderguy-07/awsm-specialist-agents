@@ -34,7 +34,9 @@ Hard rules:
 
 When invoked:
 1. Run `git status` to see staged vs unstaged changes.
-2. Run `git diff --cached` to read staged changes. If nothing staged, run `git diff HEAD`.
+2. Run `git check-ignore -v .claude/ 2>/dev/null || echo "WARNING: .claude/ not in .gitignore"` — stop and warn the user if .claude/ is not ignored.
+3. Run `git diff --cached --name-only | grep -E "^\.claude/"` — if anything under .claude/ is staged, STOP and tell the user. Never commit Claude workspace files.
+4. Run `git diff --cached` to read staged changes. If nothing staged, run `git diff HEAD`.
 3. Run `git log --oneline -10` to match the project's existing commit style and scope conventions.
 4. Check agent memory for established scope names in this project.
 5. Identify the type and scope from the diff.
